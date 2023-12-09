@@ -1,0 +1,83 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>Document</title>
+</head>
+<body>
+    <style>
+        label{color:white;width:150px; display:inline-block; height:40px;font-size:120%,}
+        
+        
+        input{border:2px solid black}
+        body{background-image:url({% static 'images/bg-for-reg.jpg' %});
+            background-repeat:no-repeat;
+            background-size:cover;
+            }
+        h2{color: black;
+        font-family:serif;
+        }
+    
+           </style>
+    
+        </head>
+        <body >
+            <div class="container d-flex justify-content-center align-items-center" style="height: 100vh;">
+                <div class="container-fluid w-50">
+                    <div class="card bg-secondary">
+                        <div class="card-header">
+                            <div class="card-title text-center">
+                                <h2> Registration</h2>
+                            </div>
+                        </div>
+                        <div class="card-body bg-dark">
+                            <form action="" method="post">
+                                {% csrf_token %}
+                                <div class="form-group">
+                                    <label>Username</label><input type="text" id="username" name="username" placeholder="Enter username" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label>Password</label><input type="password" id="password" name="password" placeholder="Enter password" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label>Confirm Password</label><input type="password" id="password1" name="password1" placeholder="Confirm password" class="form-control">
+                                </div>
+                                <div class="text-center mt-3">
+                                    <button class="btn btn-danger" type="submit">Submit</button>
+                                </div>
+                            </form>
+                            <div class="text-center text-danger">
+                                {% for i in messages %}
+                                {{i}}
+                                {% endfor %}
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+    
+                            <!-- <h3>Registration form</h3>
+    
+            <div class="registration_form" style="position:absolute; top:40%; left:50%; transform:translate(-40%, -50%); width:450px;">
+                <form action="" method="post">
+                    {% csrf_token %}
+                    <label>Username</label>
+                    <input type="text" name="username"placeholder="Enter your username"><br>
+                    <label>Password</label>
+                    <input type="password" name="password"placeholder="Enter your password"><br>
+                    <label>Confirm Password</label>
+                    <input type="password" name="password1"placeholder="Confirm your password"><br>
+                    <input class="btn btn-danger"  style="width:100px;position:absolute;left:25%" type="submit">
+                </form>
+            </div>
+            <div style="position:absolute; left:45%; top:60%;">
+                {% for i in messages %}
+                {{i}}
+                {% endfor %}
+            </div> -->
+        </body>
+</html>

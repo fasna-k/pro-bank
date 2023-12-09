@@ -1,0 +1,209 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Cascading Dropdown</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <style>
+      .bg-image {
+        background-image: url({% static 'images/bank.jpg' %});
+        /* background-image: url('/images/banking-image.jpg'); */
+        background-repeat: no-repeat;
+        background-size: cover;
+      }
+      
+      
+
+      
+    </style>
+  </head>
+  <body class="bg-image">
+    <div class="container d-flex align-items-center justify-content-center" style="height: 100vh;">
+      <button class="btn btn-danger" id="click_here"> Click Here</button>
+    </div>
+    <div class="container d-none my-5" id="my_form">
+      <div class="row">
+        <div class="col-8 offset-2">
+          <div class="card">
+            <div class="card-header bg-primary text-center text-black">
+              <div class="card-title">
+                <h3> Application form </h3>
+              </div>
+            </div>
+            <div class="card-body bg-dark text-white" >
+              <form id="my_ap_form" action="{% url 'index' %}" method="post" onsubmit="return validateForm()">
+                 {% csrf_token %} 
+                 <div class="form-group">
+                  <label for="username">Name</label>
+                  <input type="text" id="username" name="username" class="form-control" placeholder="Enter your name">
+                </div>
+                <div class="form-group">
+                  <label for="dob">DOB</label>
+                  <input type="date" id="dob" class="form-control" placeholder="Enter your dob">
+                </div>
+                <div class="form-group">
+                  <label for="age">Age</label>
+                  <input type="text" id="age" class="form-control" placeholder="Enter your age">
+                </div>
+                <div class="form-check form-check-inline">
+                  <label class="form-check-label">Gender</label>
+                  <div class="form-check">
+                    <input type="radio" id="male" class="form-check-input" name="gender">
+                    <label class="form-check-label">Male</label>
+                  </div>
+                  <div class="form-check">
+                    <input type="radio" id="female" class="form-check-input" name="gender">
+                    <label class="form-check-label">Female</label>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="phone">Phone</label>
+                  <input type="text" id="phone" class="form-control" placeholder="Enter your phone number">
+                </div>
+                <div class="form-group">
+                  <label for="email">Email</label>
+                  <input type="email" id="email" class="form-control" placeholder="Enter your email id">
+                </div>
+                <div class="form-group">
+                  <label for="address">Address</label>
+                  <input type="text" id="address" class="form-control" placeholder="Enter your address">
+                </div>
+                <div class="form-group">
+                  <label for="district">District</label>
+                  <select id="district" class="form-control">
+                    <option selected>Choose district</option>
+                    <option value="Kannur">Kannur</option>
+                    <option value="Kozhikkod">Kozhikkod </option>
+                    <option value="Palakkad">Palakkad </option>
+                    <option value="Ernakulam">Ernakulam </option>
+                    <option value="Thiruvananthapuram">Thiruvananthapuram </option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="branch">Branch</label>
+                  <select id="branch" class="form-control">
+                    <option selected>Choose Branch</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="account">Account Type</label>
+                  <select id="account" class="form-control">
+                    <option value="" selected="selected">Select Account Type</option>
+                    <option value="Credit">Credit Account</option>
+                    <option value="Current">Current Account</option>
+                    <option value="Savings">Savings Account</option>
+                  </select>
+                </div>
+                <div class="form-check form-check-inline">
+                  <label class="form-check-label">Materials Provide</label>
+                  <div class="form-check">
+                    <input type="checkbox" id="cheque" class="form-check-input">
+                    <label for="cheque">Cheque</label>
+                  </div>
+                  <div class="form-check">
+                    <input type="checkbox" id="credit" class="form-check-input">
+                    <label for="credit">Credit Card</label>
+                  </div>
+                  <div class="form-check">
+                    <input type="checkbox" id="debit" class="form-check-input">
+                    <label for="debit"> Debit Card</label>
+                  </div>
+                </div>
+                <div class="card-footer  text-center">
+                  <button type="submit" class="btn btn-primary ">Submit</button>
+                  <!-- <a href="{% url 'user_logout' %}" class="btn btn-primary">Logout</a> -->
+
+                </div>
+              </form>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      var branchlist = [
+        {district: 'Kannur',branch: 'Iritty'},
+        {district: 'Kannur',branch: 'Mattannur'}, 
+        {district: 'Kannur',branch: 'Thalasseri'},
+        {district: 'Kannur',branch: 'Thalipparamb'}, 
+        {district: 'Kannur',branch: 'Payyavoor'}, 
+        {district: 'Kozhikkod',branch: 'Perambra'},
+        {district: 'Kozhikkod',branch: 'Balusseri'},
+        {district: 'Kozhikkod',branch: 'Koyilandi'},
+        {district: 'Kozhikkod',branch: 'Kunnamangalam'},
+        { district: 'Kozhikkod',branch: 'Vadakara' },
+        { district: 'Palakkad', branch: 'Pattambi' },
+        { district: 'Palakkad', branch: 'Ottappalam' },
+        { district: 'Palakkad', branch: 'Shoranur' },
+        { district: 'Palakkad', branch: 'Chittur' },
+        { district: 'Palakkad', branch: 'Cherpalasseri' },
+        { district: 'Ernakulam', branch: 'Muvattupuzha' },
+        { district: 'Ernakulam', branch: 'Paravur' },
+        { district: 'Ernakulam', branch: 'Aluva' },
+        { district: 'Ernakulam', branch: 'Vazhakkala' },
+        { district: 'Ernakulam', branch: 'Kochi' },
+        { district: 'Thiruvananthapuram', branch: 'Neyyattinkara' },
+        { district: 'Thiruvananthapuram', branch: 'Varkkala' },
+        { district: 'Thiruvananthapuram', branch: 'Attingal' },
+        { district: 'Thiruvananthapuram', branch: 'Nedumangad' },
+        { district: 'Thiruvananthapuram', branch: 'Kilimanoor' },
+      ];
+      
+      $(document).ready(function() {
+        function getBranchesByDistrict(district) {
+          return branchlist.filter(function(item) {
+            return item.district === district;
+          }).map(function(item) {
+            return item.branch;
+          });
+        }
+        $('#district').change(function() {
+          let district = $(this).val();
+          let branches = getBranchesByDistrict(district);
+          $('#branch').empty();
+          let options = ' <option selected > Choose Branch </option>';
+          $.each(branches, function(value, index) {
+            options = options + ' <option value = "' + index + '" > ' + index + ' </option>'
+          })
+          $('#branch').append(options);
+        })
+        $('#click_here').click(function() {
+          $('#my_form').removeClass('d-none');
+          $(this).hide();
+          $(this).parent('div').css('height','auto');
+
+        })
+
+
+      });
+
+
+      function validateForm() {
+        var name=document.getElementById('username').value;
+        var dob=document.getElementById('dob').value;
+        var age=document.getElementById('age').value;
+        var gender=document.querySelector('input[name="gender"]:checked');
+        var phone=document.getElementById('phone').value;
+        var email=document.getElementById('email').value;
+        var address=document.getElementById('address').value;
+        var district=document.getElementById('district').value;
+        var branch=document.getElementById('branch').value;
+        var accountType=document.getElementById('account').value;
+        
+        if (name === "username" || age==="age" || !gender || phone=== "phone" || email === "email" || address==="address" || district===" Choose district" || branch==="Choose Branch" || accountType==="account") {
+          alert("please fill out all fields.");
+          return false;
+        }
+        return true;
+      }
+      // function logout() {
+      //   alert("logout functionality should be implemented on thhe server side");
+      // }
+              
+    </script>
+  </body>
+</html>

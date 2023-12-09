@@ -1,0 +1,61 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <title>Document</title>
+    <style>
+        label{color:whitesmoke;width:150px; display:inline-block; height:40px;font-size:120%;
+            font-family: serif;
+        }
+    
+    input{border:2px solid black}
+    h2{color:black;
+    font-family:serif;
+    }
+    body{background-image:url({% static 'images/rupee-1.jpg' %});
+            background-repeat:no-repeat;
+            background-size:cover;
+            }
+   
+
+    </style>
+</head>
+<body>
+    <div class="container d-flex justify-content-center align-items-center" style="height: 100vh;">
+        <div class="container-fluid w-50">
+            <div class="card bg-primary">
+                <div class="card-header">
+                    <div class="card-title text-center">
+                        <h2> Login</h2>
+                    </div>
+                </div>
+                <div class="card-body bg-dark">
+                    <form action="" method="post">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label>Username</label><input type="text" id="username" name="username" placeholder="Enter username" class="form-control" fdprocessedid="eqqsgv">
+                        </div>
+                        <div class="form-group">
+                            <label>Password</label><input type="password" id="password" name="password" placeholder="Enter password" class="form-control" fdprocessedid="wdket">
+                        </div>
+                        <div class="justify-content-between d-flex mt-3">
+                            <button class="btn btn-primary" type="submit">Submit</button>
+                            <a href="{% url 'user_register' %}" class="btn btn-link" type="button">Register Here</a>
+                        </div>
+                    </form>
+                    <div class="text-center text-danger">
+                        {% for i in messages %}
+                        {{i}}
+                        {% endfor %}
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</body> 
+</html>
